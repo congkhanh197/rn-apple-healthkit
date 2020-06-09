@@ -33,7 +33,7 @@
                                    unit:stepsUnit
                                     day:date
                              completion:^(double value, NSDate *startDate, NSDate *endDate, NSError *error) {
-        if (!value) {
+        if (isnan(value)) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
@@ -194,7 +194,7 @@
     HKQuantityType *quantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceWalkingRunning];
 
     [self fetchSumOfSamplesOnDayForType:quantityType unit:unit day:date completion:^(double distance, NSDate *startDate, NSDate *endDate, NSError *error) {
-        if (!distance) {
+        if (isnan(distance)) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
@@ -285,7 +285,7 @@
     HKQuantityType *quantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierDistanceCycling];
 
     [self fetchSumOfSamplesOnDayForType:quantityType unit:unit day:date completion:^(double distance, NSDate *startDate, NSDate *endDate, NSError *error) {
-        if (!distance) {
+       if (isnan(distance)) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }
@@ -341,7 +341,7 @@
     HKQuantityType *quantityType = [HKObjectType quantityTypeForIdentifier:HKQuantityTypeIdentifierFlightsClimbed];
 
     [self fetchSumOfSamplesOnDayForType:quantityType unit:unit day:date completion:^(double count, NSDate *startDate, NSDate *endDate, NSError *error) {
-        if (!count) {
+       if (isnan(count)) {
             callback(@[RCTJSErrorFromNSError(error)]);
             return;
         }

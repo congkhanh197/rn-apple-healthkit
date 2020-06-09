@@ -438,13 +438,15 @@
                                                           quantitySamplePredicate:predicate
                                                           options:HKStatisticsOptionCumulativeSum
                                                           completionHandler:^(HKStatisticsQuery *query, HKStatistics *result, NSError *error) {
-                                                              HKQuantity *sum = [result sumQuantity];
-                                                              NSDate *startDate = result.startDate;
-                                                              NSDate *endDate = result.endDate;
-                                                              if (completionHandler) {
-                                                                     double value = [sum doubleValueForUnit:unit];
-                                                                     completionHandler(value,startDate, endDate, error);
-                                                              }
+                                                            HKQuantity *sum = [result sumQuantity];
+                                                            if (sum) {
+																															NSDate *startDate = result.startDate;
+																															NSDate *endDate = result.endDate;
+																															double value = [sum doubleValueForUnit:unit];
+																															completionHandler(value,startDate, endDate, error);
+																															return;
+																														}
+																														completionHandler(NAN, nil, nil, error);
                                                           }];
 
     [self.healthStore executeQuery:query];
